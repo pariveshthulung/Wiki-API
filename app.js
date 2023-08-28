@@ -26,11 +26,14 @@ const Article = mongoose.model("article", wikiSchema);
 
 // requesting landing page
 app.get("/",function(req,res){
-    console.log("server started at port 3000.");
+    
 });
 
-// requesting articles page
-app.get("/articles", function(req,res){
+// chainable routing handler
+app.route("/articles")
+
+// reading data from database
+.get(function(req,res){
     Article.find()
     .then(function(data){
         res.send(data);
@@ -39,10 +42,10 @@ app.get("/articles", function(req,res){
         res.send(err);
     });
 
-});
+})
 
 // sending data to server
-app.post("/articles",function(req,res){
+.post(function(req,res){
 
     // creating document
     const newArticle = new Article({
@@ -58,10 +61,10 @@ app.post("/articles",function(req,res){
     .catch(function(err){
         console.log(err);
     });
-});
+})
 
-// deleting data
-app.delete("/articles",function(req,res){
+// deleting data from database
+.delete(function(req,res){
     Article.deleteMany()
     .then(function(){
         console.log("[-]sucessfully deleted");
@@ -70,7 +73,6 @@ app.delete("/articles",function(req,res){
         console.log(err);
     })
 });
-
 
 // defining local host
 app.listen(3000,function(){
