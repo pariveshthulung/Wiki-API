@@ -60,6 +60,17 @@ app.post("/articles",function(req,res){
     });
 });
 
+// deleting data
+app.delete("/articles",function(req,res){
+    Article.deleteMany()
+    .then(function(){
+        console.log("[-]sucessfully deleted");
+    })
+    .catch(function(err){
+        console.log(err);
+    })
+});
+
 
 // defining local host
 app.listen(3000,function(){
