@@ -24,7 +24,7 @@ const wikiSchema={
 // creating model
 const Article = mongoose.model("article", wikiSchema);
 
-// requesting landing page
+/////////////////////////////////// Request targeting all Articles ///////////////////////////////
 app.get("/",function(req,res){
     
 });
@@ -74,8 +74,10 @@ app.route("/articles")
     })
 });
 
-// custom route
+/////////////////////////////////// Request targeting a specific Articles ///////////////////////////////
+
 app.route("/articles/:articleTitle")
+
 .get(function(req,res){
     console.log(req.params.articleTitle);
     Article.findOne({ title: req.params.articleTitle})
@@ -95,6 +97,19 @@ app.route("/articles/:articleTitle")
     });
 
 })
+
+.put(function(req,res){
+    Article.updateOne(
+        {title:req.params.articleTitle},
+        {title: req.body.title, content:req.body.content},
+    )
+    .then(function(){
+        console.log("sucessfully replace data");
+    })
+    .catch(function(err){
+        console.log(err);
+    });
+});
 
 // defining local host
 app.listen(3000,function(){
