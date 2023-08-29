@@ -74,6 +74,28 @@ app.route("/articles")
     })
 });
 
+// custom route
+app.route("/articles/:articleTitle")
+.get(function(req,res){
+    console.log(req.params.articleTitle);
+    Article.findOne({ title: req.params.articleTitle})
+    .then(function(founddata){
+        if(founddata){
+            res.send(founddata);
+            console.log(founddata);
+        }
+        else{
+            console.log("data not found");
+        }
+
+    })
+    .catch(function(){
+        console.log("data not found");
+        res.send("data not found");
+    });
+
+})
+
 // defining local host
 app.listen(3000,function(){
     console.log("server started in port 3000");
