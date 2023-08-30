@@ -110,6 +110,8 @@ app.route("/articles/:articleTitle")
         console.log(err);
     });
 })
+
+
 .patch(function(req,res){
     Article.updateOne(
         {title: req.params.articleTitle},
@@ -121,6 +123,16 @@ app.route("/articles/:articleTitle")
     .catch(function(err){
         console.log(err);
     });
+})
+.delete(function(req,res){
+    Article.deleteOne({ title: req.params.articleTitle})
+    .then(function(){
+        console.log("sucessfully deleted");
+
+    })
+    .catch(function(err){
+        console.log(err);
+    })
 });
 
 // defining local host
