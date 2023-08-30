@@ -109,6 +109,18 @@ app.route("/articles/:articleTitle")
     .catch(function(err){
         console.log(err);
     });
+})
+.patch(function(req,res){
+    Article.updateOne(
+        {title: req.params.articleTitle},
+        {$set : req.body}
+    )
+    .then(function(){
+        console.log("sucessfully updated by patch http verb");
+    })
+    .catch(function(err){
+        console.log(err);
+    });
 });
 
 // defining local host
